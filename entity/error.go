@@ -14,6 +14,9 @@ var ErrCannotBeDeleted = errors.New("Cannot Be Deleted")
 //ErrNotEnoughBooks cannot borrow
 var ErrNotEnoughBooks = errors.New("Not enough books")
 
+//ErrNotEnoughBooks cannot borrow
+var ErrNotEnoughPublishers = errors.New("Not enough Publishers")
+
 //ErrBookAlreadyBorrowed cannot borrow
 var ErrBookAlreadyBorrowed = errors.New("Book already borrowed")
 

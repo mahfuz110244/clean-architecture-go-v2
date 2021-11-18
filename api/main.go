@@ -11,6 +11,7 @@ import (
 
 	"github.com/eminetto/clean-architecture-go-v2/infrastructure/repository"
 	"github.com/eminetto/clean-architecture-go-v2/usecase/book"
+	"github.com/eminetto/clean-architecture-go-v2/usecase/publisher"
 	"github.com/eminetto/clean-architecture-go-v2/usecase/user"
 
 	"github.com/eminetto/clean-architecture-go-v2/usecase/loan"
@@ -36,6 +37,9 @@ func main() {
 	}
 	defer db.Close()
 
+	publisherRepo := repository.NewPublisherMySQL(db)
+	publisherService := publisher.NewService(publisherRepo)
+
 	bookRepo := repository.NewBookMySQL(db)
 	bookService := book.NewService(bookRepo)
 
@@ -55,6 +59,9 @@ func main() {
 		negroni.HandlerFunc(middleware.Metrics(metricService)),
 		negroni.NewLogger(),
 	)
+	//publisher
+	handler.MakePublisherHandlers(r, *n, publisherService)
+
 	//book
 	handler.MakeBookHandlers(r, *n, bookService)
 

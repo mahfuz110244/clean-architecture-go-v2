@@ -35,6 +35,7 @@ build-mocks:
 	@~/go/bin/mockgen -source=usecase/book/interface.go -destination=usecase/book/mock/book.go -package=mock
 	@~/go/bin/mockgen -source=usecase/user/interface.go -destination=usecase/user/mock/user.go -package=mock
 	@~/go/bin/mockgen -source=usecase/loan/interface.go -destination=usecase/loan/mock/loan.go -package=mock
+	@~/go/bin/mockgen -source=usecase/publisher/interface.go -destination=usecase/publisher/mock/publisher.go -package=mock
 
 test:
 	go test -tags testing ./...
