@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/eminetto/clean-architecture-go-v2/usecase/user"
 
@@ -98,7 +99,7 @@ func getUser(service user.UseCase) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error reading user"
 		vars := mux.Vars(r)
-		id, err := entity.StringToID(vars["id"])
+		id, err := strconv.Atoi(vars["id"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -134,7 +135,7 @@ func deleteUser(service user.UseCase) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error removing user"
 		vars := mux.Vars(r)
-		id, err := entity.StringToID(vars["id"])
+		id, err := strconv.Atoi(vars["id"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))

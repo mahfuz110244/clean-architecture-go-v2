@@ -20,10 +20,10 @@ func NewService(r Repository) *Service {
 }
 
 //CreatePublisher create a Publisher
-func (s *Service) CreatePublisher(name, address string) (entity.ID, error) {
+func (s *Service) CreatePublisher(name, address string) (int, error) {
 	b, err := entity.NewPublisher(name, address)
 	if err != nil {
-		return entity.NewID(), err
+		return b.ID, err
 	}
 	return s.repo.Create(b)
 }

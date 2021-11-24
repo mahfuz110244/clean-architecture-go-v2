@@ -13,8 +13,9 @@ require (
 	github.com/gorilla/mux v1.6.2
 	github.com/jimlawless/whereami v0.0.0-20160417220522-aebf70d4a772 // indirect
 	github.com/juju/mgosession v0.0.0-20170206150231-9ae6df2882cd
+	github.com/labstack/gommon v0.3.1
 	github.com/prometheus/client_golang v1.7.1
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.7.0
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
 	gopkg.in/mgo.v2 v2.0.0-20180705113604-9856a29383ce
 	rsc.io/quote/v3 v3.1.0 // indirect

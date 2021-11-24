@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
 	"testing"
 
 	"github.com/eminetto/clean-architecture-go-v2/entity"
@@ -37,7 +38,7 @@ func Test_borrowBook(t *testing.T) {
 		bMock.EXPECT().GetBook(bID).Return(nil, entity.ErrNotFound)
 		ts := httptest.NewServer(r)
 		defer ts.Close()
-		res, err := http.Get(fmt.Sprintf("%s/v1/loan/borrow/%s/%s", ts.URL, bID.String(), uID.String()))
+		res, err := http.Get(fmt.Sprintf("%s/v1/loan/borrow/%s/%s", ts.URL, strconv.Itoa(bID), strconv.Itoa(uID)))
 		assert.Nil(t, err)
 		assert.Equal(t, http.StatusNotFound, res.StatusCode)
 	})
@@ -50,7 +51,7 @@ func Test_borrowBook(t *testing.T) {
 		uMock.EXPECT().GetUser(uID).Return(nil, entity.ErrNotFound)
 		ts := httptest.NewServer(r)
 		defer ts.Close()
-		res, err := http.Get(fmt.Sprintf("%s/v1/loan/borrow/%s/%s", ts.URL, b.ID.String(), uID.String()))
+		res, err := http.Get(fmt.Sprintf("%s/v1/loan/borrow/%s/%s", ts.URL, strconv.Itoa(b.ID), strconv.Itoa(uID)))
 		assert.Nil(t, err)
 		assert.Equal(t, http.StatusNotFound, res.StatusCode)
 	})
@@ -66,7 +67,8 @@ func Test_borrowBook(t *testing.T) {
 		lMock.EXPECT().Borrow(u, b).Return(nil)
 		ts := httptest.NewServer(r)
 		defer ts.Close()
-		res, err := http.Get(fmt.Sprintf("%s/v1/loan/borrow/%s/%s", ts.URL, b.ID.String(), u.ID.String()))
+		res, err := http.Get(fmt.Sprintf("%s/v1/loan/borrow/%s/%s", ts.URL, strconv.Itoa(b.ID), strconv.Itoa(u.ID)))
+		assert.Nil(t, err)
 		assert.Nil(t, err)
 		assert.Equal(t, http.StatusCreated, res.StatusCode)
 	})
@@ -91,7 +93,7 @@ func Test_returnBook(t *testing.T) {
 		bMock.EXPECT().GetBook(bID).Return(nil, entity.ErrNotFound)
 		ts := httptest.NewServer(r)
 		defer ts.Close()
-		res, err := http.Get(fmt.Sprintf("%s/v1/loan/return/%s", ts.URL, bID.String()))
+		res, err := http.Get(fmt.Sprintf("%s/v1/loan/return/%s", ts.URL, strconv.Itoa(bID)))
 		assert.Nil(t, err)
 		assert.Equal(t, http.StatusNotFound, res.StatusCode)
 	})
@@ -103,7 +105,7 @@ func Test_returnBook(t *testing.T) {
 		lMock.EXPECT().Return(b).Return(nil)
 		ts := httptest.NewServer(r)
 		defer ts.Close()
-		res, err := http.Get(fmt.Sprintf("%s/v1/loan/return/%s", ts.URL, b.ID.String()))
+		res, err := http.Get(fmt.Sprintf("%s/v1/loan/return/%s", ts.URL, strconv.Itoa(b.ID)))
 		assert.Nil(t, err)
 		assert.Equal(t, http.StatusCreated, res.StatusCode)
 	})

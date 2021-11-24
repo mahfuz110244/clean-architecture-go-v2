@@ -2,8 +2,10 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/eminetto/clean-architecture-go-v2/usecase/book"
 
@@ -56,6 +58,7 @@ func listBooks(service book.UseCase) http.Handler {
 }
 
 func createBook(service book.UseCase) http.Handler {
+	fmt.Println("---------------------")
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error adding book"
 		var input struct {
@@ -65,13 +68,17 @@ func createBook(service book.UseCase) http.Handler {
 			Quantity int    `json:"quantity"`
 		}
 		err := json.NewDecoder(r.Body).Decode(&input)
+		fmt.Println("---------------------")
 		if err != nil {
 			log.Println(err.Error())
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
 			return
 		}
+		fmt.Println("---------------------okkkkkkkkkkkkkkkkkkkkkkkkkk")
 		id, err := service.CreateBook(input.Title, input.Author, input.Pages, input.Quantity)
+		fmt.Println("--------------------- errrrrrrrrrrrrrr")
+		fmt.Println(err)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -99,7 +106,7 @@ func getBook(service book.UseCase) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error reading book"
 		vars := mux.Vars(r)
-		id, err := entity.StringToID(vars["id"])
+		id, err := strconv.Atoi(vars["id"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -135,7 +142,7 @@ func deleteBook(service book.UseCase) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error removing bookmark"
 		vars := mux.Vars(r)
-		id, err := entity.StringToID(vars["id"])
+		id, err := strconv.Atoi(vars["id"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))

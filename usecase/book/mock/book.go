@@ -103,10 +103,10 @@ func (m *MockWriter) EXPECT() *MockWriterMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockWriter) Create(e *entity.Book) (entity.ID, error) {
+func (m *MockWriter) Create(e *entity.Book) (int, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", e)
-	ret0, _ := ret[0].(entity.ID)
+	ret0, _ := ret[0].(int)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -169,10 +169,10 @@ func (m *MockRepository) EXPECT() *MockRepositoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockRepository) Create(e *entity.Book) (entity.ID, error) {
+func (m *MockRepository) Create(e *entity.Book) (int, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", e)
-	ret0, _ := ret[0].(entity.ID)
+	ret0, _ := ret[0].(int)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -280,10 +280,10 @@ func (m *MockUseCase) EXPECT() *MockUseCaseMockRecorder {
 }
 
 // CreateBook mocks base method.
-func (m *MockUseCase) CreateBook(title, author string, pages, quantity int) (entity.ID, error) {
+func (m *MockUseCase) CreateBook(title, author string, pages, quantity int) (int, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateBook", title, author, pages, quantity)
-	ret0, _ := ret[0].(entity.ID)
+	ret0, _ := ret[0].(int)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -295,7 +295,7 @@ func (mr *MockUseCaseMockRecorder) CreateBook(title, author, pages, quantity int
 }
 
 // DeleteBook mocks base method.
-func (m *MockUseCase) DeleteBook(id entity.ID) error {
+func (m *MockUseCase) DeleteBook(id int) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteBook", id)
 	ret0, _ := ret[0].(error)
@@ -309,7 +309,7 @@ func (mr *MockUseCaseMockRecorder) DeleteBook(id interface{}) *gomock.Call {
 }
 
 // GetBook mocks base method.
-func (m *MockUseCase) GetBook(id entity.ID) (*entity.Book, error) {
+func (m *MockUseCase) GetBook(id int) (*entity.Book, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetBook", id)
 	ret0, _ := ret[0].(*entity.Book)

@@ -1,10 +1,12 @@
 package user
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
 	"github.com/eminetto/clean-architecture-go-v2/entity"
+	"github.com/labstack/gommon/log"
 )
 
 //Service  interface
@@ -20,8 +22,11 @@ func NewService(r Repository) *Service {
 }
 
 //CreateUser Create an user
-func (s *Service) CreateUser(email, password, firstName, lastName string) (entity.ID, error) {
+func (s *Service) CreateUser(email, password, firstName, lastName string) (int, error) {
+	fmt.Println("----------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 	e, err := entity.NewUser(email, password, firstName, lastName)
+	log.Info("----------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+	log.Info(e)
 	if err != nil {
 		return e.ID, err
 	}

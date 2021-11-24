@@ -1,6 +1,7 @@
 package book
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
@@ -20,10 +21,11 @@ func NewService(r Repository) *Service {
 }
 
 //CreateBook create a book
-func (s *Service) CreateBook(title string, author string, pages int, quantity int) (entity.ID, error) {
+func (s *Service) CreateBook(title string, author string, pages int, quantity int) (int, error) {
 	b, err := entity.NewBook(title, author, pages, quantity)
+	fmt.Println("---------------------------------------------")
 	if err != nil {
-		return entity.NewID(), err
+		return b.ID, err
 	}
 	return s.repo.Create(b)
 }

@@ -6,7 +6,7 @@ import (
 
 //Publisher data
 type Publisher struct {
-	ID        ID
+	ID        int
 	Name      string
 	Address   string
 	CreatedAt time.Time
@@ -16,7 +16,6 @@ type Publisher struct {
 //NewPublisher create a new Publisher
 func NewPublisher(name string, address string) (*Publisher, error) {
 	b := &Publisher{
-		ID:        NewID(),
 		Name:      name,
 		Address:   address,
 		CreatedAt: time.Now(),

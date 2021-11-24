@@ -1,17 +1,21 @@
 package entity
 
-import "github.com/google/uuid"
+import (
+	"math/rand"
+)
+
+// import "github.com/google/uuid"
 
 //ID entity ID
-type ID = uuid.UUID
+type ID = int
 
 //NewID create a new entity ID
 func NewID() ID {
-	return ID(uuid.New())
+	return ID(rand.Intn(1000000))
 }
 
-//StringToID convert a string to an entity ID
-func StringToID(s string) (ID, error) {
-	id, err := uuid.Parse(s)
-	return ID(id), err
-}
+// //StringToID convert a string to an entity ID
+// func StringToID(s string) (ID, error) {
+// 	id, err := uuid.Parse(s)
+// 	return ID(id), err
+// }

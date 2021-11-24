@@ -20,15 +20,14 @@ func NewPublisherMySQL(db *sql.DB) *PublisherMySQL {
 }
 
 //Create a Publisher
-func (r *PublisherMySQL) Create(e *entity.Publisher) (entity.ID, error) {
+func (r *PublisherMySQL) Create(e *entity.Publisher) (int, error) {
 	stmt, err := r.db.Prepare(`
-		insert into publisher (id, name, address, created_at) 
-		values(?,?,?,?)`)
+		insert into publisher (name, address, created_at) 
+		values(?,?,?)`)
 	if err != nil {
 		return e.ID, err
 	}
 	_, err = stmt.Exec(
-		e.ID,
 		e.Name,
 		e.Address,
 		time.Now().Format("2006-01-02"),

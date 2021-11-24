@@ -8,7 +8,7 @@ import (
 
 //User data
 type User struct {
-	ID        ID
+	ID        int
 	Email     string
 	Password  string
 	FirstName string
@@ -21,7 +21,6 @@ type User struct {
 //NewUser create a new user
 func NewUser(email, password, firstName, lastName string) (*User, error) {
 	u := &User{
-		ID:        NewID(),
 		Email:     email,
 		FirstName: firstName,
 		LastName:  lastName,

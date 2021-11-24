@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/eminetto/clean-architecture-go-v2/usecase/book"
 	"github.com/eminetto/clean-architecture-go-v2/usecase/user"
@@ -18,7 +19,7 @@ func borrowBook(bookService book.UseCase, userService user.UseCase, loanService 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error borrowing book"
 		vars := mux.Vars(r)
-		bID, err := entity.StringToID(vars["book_id"])
+		bID, err := strconv.Atoi(vars["book_id"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -35,7 +36,7 @@ func borrowBook(bookService book.UseCase, userService user.UseCase, loanService 
 			w.Write([]byte(errorMessage))
 			return
 		}
-		uID, err := entity.StringToID(vars["user_id"])
+		uID, err := strconv.Atoi(vars["user_id"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -67,7 +68,7 @@ func returnBook(bookService book.UseCase, loanService loan.UseCase) http.Handler
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error returning book"
 		vars := mux.Vars(r)
-		bID, err := entity.StringToID(vars["book_id"])
+		bID, err := strconv.Atoi(vars["book_id"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))

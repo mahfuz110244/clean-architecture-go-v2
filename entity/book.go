@@ -6,7 +6,7 @@ import (
 
 //Book data
 type Book struct {
-	ID        ID
+	ID        int
 	Title     string
 	Author    string
 	Pages     int
@@ -18,7 +18,6 @@ type Book struct {
 //NewBook create a new book
 func NewBook(title string, author string, pages int, quantity int) (*Book, error) {
 	b := &Book{
-		ID:        NewID(),
 		Title:     title,
 		Author:    author,
 		Pages:     pages,

@@ -2,8 +2,10 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/eminetto/clean-architecture-go-v2/api/presenter"
 	"github.com/eminetto/clean-architecture-go-v2/usecase/publisher"
@@ -61,13 +63,17 @@ func createPublisher(service publisher.UseCase) http.Handler {
 			Address string `json:"address"`
 		}
 		err := json.NewDecoder(r.Body).Decode(&input)
+		fmt.Println("------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.")
+		fmt.Println(input)
 		if err != nil {
 			log.Println(err.Error())
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
 			return
 		}
+		log.Println("------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.")
 		id, err := service.CreatePublisher(input.Name, input.Address)
+		fmt.Println(id, err)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -93,7 +99,7 @@ func getPublisher(service publisher.UseCase) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error reading Publisher"
 		vars := mux.Vars(r)
-		id, err := entity.StringToID(vars["id"])
+		id, err := strconv.Atoi(vars["id"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -127,7 +133,7 @@ func deletePublisher(service publisher.UseCase) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error removing Publishermark"
 		vars := mux.Vars(r)
-		id, err := entity.StringToID(vars["id"])
+		id, err := strconv.Atoi(vars["id"])
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))

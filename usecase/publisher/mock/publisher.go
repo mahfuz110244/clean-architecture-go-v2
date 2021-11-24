@@ -35,7 +35,7 @@ func (m *MockReader) EXPECT() *MockReaderMockRecorder {
 }
 
 // Get mocks base method.
-func (m *MockReader) Get(id entity.ID) (*entity.Publisher, error) {
+func (m *MockReader) Get(id int) (*entity.Publisher, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Get", id)
 	ret0, _ := ret[0].(*entity.Publisher)
@@ -103,10 +103,10 @@ func (m *MockWriter) EXPECT() *MockWriterMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockWriter) Create(e *entity.Publisher) (entity.ID, error) {
+func (m *MockWriter) Create(e *entity.Publisher) (int, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", e)
-	ret0, _ := ret[0].(entity.ID)
+	ret0, _ := ret[0].(int)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -118,7 +118,7 @@ func (mr *MockWriterMockRecorder) Create(e interface{}) *gomock.Call {
 }
 
 // Delete mocks base method.
-func (m *MockWriter) Delete(id entity.ID) error {
+func (m *MockWriter) Delete(id int) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Delete", id)
 	ret0, _ := ret[0].(error)
@@ -169,10 +169,10 @@ func (m *MockRepository) EXPECT() *MockRepositoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockRepository) Create(e *entity.Publisher) (entity.ID, error) {
+func (m *MockRepository) Create(e *entity.Publisher) (int, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", e)
-	ret0, _ := ret[0].(entity.ID)
+	ret0, _ := ret[0].(int)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -184,7 +184,7 @@ func (mr *MockRepositoryMockRecorder) Create(e interface{}) *gomock.Call {
 }
 
 // Delete mocks base method.
-func (m *MockRepository) Delete(id entity.ID) error {
+func (m *MockRepository) Delete(id int) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Delete", id)
 	ret0, _ := ret[0].(error)
@@ -198,7 +198,7 @@ func (mr *MockRepositoryMockRecorder) Delete(id interface{}) *gomock.Call {
 }
 
 // Get mocks base method.
-func (m *MockRepository) Get(id entity.ID) (*entity.Publisher, error) {
+func (m *MockRepository) Get(id int) (*entity.Publisher, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Get", id)
 	ret0, _ := ret[0].(*entity.Publisher)
@@ -280,10 +280,10 @@ func (m *MockUseCase) EXPECT() *MockUseCaseMockRecorder {
 }
 
 // CreatePublisher mocks base method.
-func (m *MockUseCase) CreatePublisher(name, address string) (entity.ID, error) {
+func (m *MockUseCase) CreatePublisher(name, address string) (int, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreatePublisher", name, address)
-	ret0, _ := ret[0].(entity.ID)
+	ret0, _ := ret[0].(int)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -295,7 +295,7 @@ func (mr *MockUseCaseMockRecorder) CreatePublisher(name, address interface{}) *g
 }
 
 // DeletePublisher mocks base method.
-func (m *MockUseCase) DeletePublisher(id entity.ID) error {
+func (m *MockUseCase) DeletePublisher(id int) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeletePublisher", id)
 	ret0, _ := ret[0].(error)
@@ -309,7 +309,7 @@ func (mr *MockUseCaseMockRecorder) DeletePublisher(id interface{}) *gomock.Call 
 }
 
 // GetPublisher mocks base method.
-func (m *MockUseCase) GetPublisher(id entity.ID) (*entity.Publisher, error) {
+func (m *MockUseCase) GetPublisher(id int) (*entity.Publisher, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetPublisher", id)
 	ret0, _ := ret[0].(*entity.Publisher)

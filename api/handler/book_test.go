@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -123,7 +124,7 @@ func Test_getBook(t *testing.T) {
 	r.Handle("/v1/book/{id}", handler)
 	ts := httptest.NewServer(r)
 	defer ts.Close()
-	res, err := http.Get(ts.URL + "/v1/book/" + b.ID.String())
+	res, err := http.Get(ts.URL + "/v1/book/" + strconv.Itoa(b.ID))
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode)
 	var d *entity.Book
@@ -147,7 +148,7 @@ func Test_deleteBook(t *testing.T) {
 	}
 	service.EXPECT().DeleteBook(b.ID).Return(nil)
 	handler := deleteBook(service)
-	req, _ := http.NewRequest("DELETE", "/v1/book/"+b.ID.String(), nil)
+	req, _ := http.NewRequest("DELETE", "/v1/book/"+strconv.Itoa(b.ID), nil)
 	r.Handle("/v1/bookmark/{id}", handler).Methods("DELETE", "OPTIONS")
 	rr := httptest.NewRecorder()
 	r.ServeHTTP(rr, req)
