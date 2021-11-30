@@ -20,7 +20,7 @@ func newInmem() *inmem {
 }
 
 //Create a Publisher
-func (r *inmem) Create(e *entity.Publisher) (int, error) {
+func (r *inmem) Create(e *entity.Publisher) (int64, error) {
 	r.m[e.ID] = e
 	return e.ID, nil
 }

@@ -63,17 +63,13 @@ func createPublisher(service publisher.UseCase) http.Handler {
 			Address string `json:"address"`
 		}
 		err := json.NewDecoder(r.Body).Decode(&input)
-		fmt.Println("------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.")
-		fmt.Println(input)
 		if err != nil {
 			log.Println(err.Error())
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
 			return
 		}
-		log.Println("------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.")
 		id, err := service.CreatePublisher(input.Name, input.Address)
-		fmt.Println(id, err)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -99,7 +95,7 @@ func getPublisher(service publisher.UseCase) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error reading Publisher"
 		vars := mux.Vars(r)
-		id, err := strconv.Atoi(vars["id"])
+		id, err := strconv.ParseInt(vars["id"], 10, 64)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -129,11 +125,53 @@ func getPublisher(service publisher.UseCase) http.Handler {
 	})
 }
 
+func updatePublisher(service publisher.UseCase) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		errorMessage := "Error updating Publisher"
+		input := entity.Publisher{}
+		err := json.NewDecoder(r.Body).Decode(&input)
+		fmt.Println(input)
+		if err != nil {
+			log.Println(err.Error())
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(errorMessage))
+			return
+		}
+		data, err := service.GetPublisher(input.ID)
+		if err != nil && err != entity.ErrNotFound {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(errorMessage))
+			return
+		}
+
+		if data == nil {
+			w.WriteHeader(http.StatusNotFound)
+			w.Write([]byte(errorMessage))
+			return
+		}
+		err = service.UpdatePublisher(&input)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(errorMessage))
+			return
+		}
+		toJ := &presenter.Publisher{
+			ID:      input.ID,
+			Name:    input.Name,
+			Address: input.Address,
+		}
+		if err := json.NewEncoder(w).Encode(toJ); err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(errorMessage))
+		}
+	})
+}
+
 func deletePublisher(service publisher.UseCase) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error removing Publishermark"
 		vars := mux.Vars(r)
-		id, err := strconv.Atoi(vars["id"])
+		id, err := strconv.ParseInt(vars["id"], 10, 64)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -161,6 +199,10 @@ func MakePublisherHandlers(r *mux.Router, n negroni.Negroni, service publisher.U
 	r.Handle("/v1/publisher/{id}", n.With(
 		negroni.Wrap(getPublisher(service)),
 	)).Methods("GET", "OPTIONS").Name("getPublisher")
+
+	r.Handle("/v1/publisher", n.With(
+		negroni.Wrap(updatePublisher(service)),
+	)).Methods("PUT", "OPTIONS").Name("updatePublisher")
 
 	r.Handle("/v1/publisher/{id}", n.With(
 		negroni.Wrap(deletePublisher(service)),

@@ -6,7 +6,7 @@ import (
 
 //Book data
 type Book struct {
-	ID        int
+	ID        int64
 	Title     string
 	Author    string
 	Pages     int

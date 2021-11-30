@@ -2,6 +2,7 @@ package repository
 
 import (
 	"database/sql"
+	"fmt"
 	"time"
 
 	"github.com/eminetto/clean-architecture-go-v2/entity"
@@ -20,14 +21,14 @@ func NewPublisherMySQL(db *sql.DB) *PublisherMySQL {
 }
 
 //Create a Publisher
-func (r *PublisherMySQL) Create(e *entity.Publisher) (int, error) {
+func (r *PublisherMySQL) Create(e *entity.Publisher) (int64, error) {
 	stmt, err := r.db.Prepare(`
 		insert into publisher (name, address, created_at) 
 		values(?,?,?)`)
 	if err != nil {
 		return e.ID, err
 	}
-	_, err = stmt.Exec(
+	res, err := stmt.Exec(
 		e.Name,
 		e.Address,
 		time.Now().Format("2006-01-02"),
@@ -39,6 +40,7 @@ func (r *PublisherMySQL) Create(e *entity.Publisher) (int, error) {
 	if err != nil {
 		return e.ID, err
 	}
+	e.ID, _ = res.LastInsertId()
 	return e.ID, nil
 }
 
@@ -62,7 +64,8 @@ func (r *PublisherMySQL) Get(id entity.ID) (*entity.Publisher, error) {
 //Update a Publisher
 func (r *PublisherMySQL) Update(e *entity.Publisher) error {
 	e.UpdatedAt = time.Now()
-	_, err := r.db.Exec("update Publisher set name = ?, address = ?, updated_at = ? where id = ?", e.Name, e.Address, e.UpdatedAt.Format("2006-01-02"), e.ID)
+	fmt.Println(e)
+	_, err := r.db.Exec("update publisher set name = ?, address = ?, updated_at = ? where id = ?", e.Name, e.Address, e.UpdatedAt.Format("2006-01-02"), e.ID)
 	if err != nil {
 		return err
 	}

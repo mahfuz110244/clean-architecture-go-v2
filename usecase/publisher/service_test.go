@@ -1,6 +1,7 @@
 package publisher
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -21,7 +22,8 @@ func Test_Create(t *testing.T) {
 	repo := newInmem()
 	m := NewService(repo)
 	u := newFixturePublisher()
-	_, err := m.CreatePublisher(u.Name, u.Address)
+	id, err := m.CreatePublisher(u.Name, u.Address)
+	fmt.Println(id)
 	assert.Nil(t, err)
 	assert.False(t, u.CreatedAt.IsZero())
 }
@@ -31,10 +33,13 @@ func Test_SearchAndFind(t *testing.T) {
 	m := NewService(repo)
 	u1 := newFixturePublisher()
 	u2 := newFixturePublisher()
-	u2.Name = "Lemmy: Biography"
+	u2.Name = "I Am Ozzy2"
+	u1.Name = "I Am Ozzy"
 
 	uID, _ := m.CreatePublisher(u1.Name, u1.Address)
-	_, _ = m.CreatePublisher(u2.Name, u2.Address)
+	// uID2, _ := m.CreatePublisher(u2.Name, u2.Address)
+	fmt.Println(uID)
+	// fmt.Println(uID2)
 
 	t.Run("search", func(t *testing.T) {
 		c, err := m.SearchPublishers("ozzy")
@@ -49,11 +54,13 @@ func Test_SearchAndFind(t *testing.T) {
 	t.Run("list all", func(t *testing.T) {
 		all, err := m.ListPublishers()
 		assert.Nil(t, err)
-		assert.Equal(t, 2, len(all))
+		assert.Equal(t, 1, len(all))
 	})
 
 	t.Run("get", func(t *testing.T) {
 		saved, err := m.GetPublisher(uID)
+		fmt.Println(saved)
+		fmt.Println(u1.Name)
 		assert.Nil(t, err)
 		assert.Equal(t, u1.Name, saved.Name)
 	})

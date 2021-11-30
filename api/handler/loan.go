@@ -19,7 +19,7 @@ func borrowBook(bookService book.UseCase, userService user.UseCase, loanService 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error borrowing book"
 		vars := mux.Vars(r)
-		bID, err := strconv.Atoi(vars["book_id"])
+		bID, err := strconv.ParseInt(vars["book_id"], 10, 64)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -36,7 +36,7 @@ func borrowBook(bookService book.UseCase, userService user.UseCase, loanService 
 			w.Write([]byte(errorMessage))
 			return
 		}
-		uID, err := strconv.Atoi(vars["user_id"])
+		uID, err := strconv.ParseInt(vars["user_id"], 10, 64)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))
@@ -68,7 +68,7 @@ func returnBook(bookService book.UseCase, loanService loan.UseCase) http.Handler
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		errorMessage := "Error returning book"
 		vars := mux.Vars(r)
-		bID, err := strconv.Atoi(vars["book_id"])
+		bID, err := strconv.ParseInt(vars["book_id"], 10, 64)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(errorMessage))

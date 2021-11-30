@@ -22,7 +22,7 @@ func NewService(r Repository) *Service {
 }
 
 //CreateUser Create an user
-func (s *Service) CreateUser(email, password, firstName, lastName string) (int, error) {
+func (s *Service) CreateUser(email, password, firstName, lastName string) (int64, error) {
 	fmt.Println("----------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 	e, err := entity.NewUser(email, password, firstName, lastName)
 	log.Info("----------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")

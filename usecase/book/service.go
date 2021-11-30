@@ -21,7 +21,7 @@ func NewService(r Repository) *Service {
 }
 
 //CreateBook create a book
-func (s *Service) CreateBook(title string, author string, pages int, quantity int) (int, error) {
+func (s *Service) CreateBook(title string, author string, pages int, quantity int) (int64, error) {
 	b, err := entity.NewBook(title, author, pages, quantity)
 	fmt.Println("---------------------------------------------")
 	if err != nil {

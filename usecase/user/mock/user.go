@@ -35,7 +35,7 @@ func (m *MockReader) EXPECT() *MockReaderMockRecorder {
 }
 
 // Get mocks base method.
-func (m *MockReader) Get(id int) (*entity.User, error) {
+func (m *MockReader) Get(id int64) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Get", id)
 	ret0, _ := ret[0].(*entity.User)
@@ -103,10 +103,10 @@ func (m *MockWriter) EXPECT() *MockWriterMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockWriter) Create(e *entity.User) (int, error) {
+func (m *MockWriter) Create(e *entity.User) (int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", e)
-	ret0, _ := ret[0].(int)
+	ret0, _ := ret[0].(int64)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -118,7 +118,7 @@ func (mr *MockWriterMockRecorder) Create(e interface{}) *gomock.Call {
 }
 
 // Delete mocks base method.
-func (m *MockWriter) Delete(id int) error {
+func (m *MockWriter) Delete(id int64) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Delete", id)
 	ret0, _ := ret[0].(error)
@@ -169,10 +169,10 @@ func (m *MockRepository) EXPECT() *MockRepositoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockRepository) Create(e *entity.User) (int, error) {
+func (m *MockRepository) Create(e *entity.User) (int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", e)
-	ret0, _ := ret[0].(int)
+	ret0, _ := ret[0].(int64)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -184,7 +184,7 @@ func (mr *MockRepositoryMockRecorder) Create(e interface{}) *gomock.Call {
 }
 
 // Delete mocks base method.
-func (m *MockRepository) Delete(id int) error {
+func (m *MockRepository) Delete(id int64) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Delete", id)
 	ret0, _ := ret[0].(error)
@@ -198,7 +198,7 @@ func (mr *MockRepositoryMockRecorder) Delete(id interface{}) *gomock.Call {
 }
 
 // Get mocks base method.
-func (m *MockRepository) Get(id int) (*entity.User, error) {
+func (m *MockRepository) Get(id int64) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Get", id)
 	ret0, _ := ret[0].(*entity.User)
@@ -280,10 +280,10 @@ func (m *MockUseCase) EXPECT() *MockUseCaseMockRecorder {
 }
 
 // CreateUser mocks base method.
-func (m *MockUseCase) CreateUser(email, password, firstName, lastName string) (int, error) {
+func (m *MockUseCase) CreateUser(email, password, firstName, lastName string) (int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateUser", email, password, firstName, lastName)
-	ret0, _ := ret[0].(int)
+	ret0, _ := ret[0].(int64)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -295,7 +295,7 @@ func (mr *MockUseCaseMockRecorder) CreateUser(email, password, firstName, lastNa
 }
 
 // DeleteUser mocks base method.
-func (m *MockUseCase) DeleteUser(id int) error {
+func (m *MockUseCase) DeleteUser(id int64) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteUser", id)
 	ret0, _ := ret[0].(error)
@@ -309,7 +309,7 @@ func (mr *MockUseCaseMockRecorder) DeleteUser(id interface{}) *gomock.Call {
 }
 
 // GetUser mocks base method.
-func (m *MockUseCase) GetUser(id int) (*entity.User, error) {
+func (m *MockUseCase) GetUser(id int64) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetUser", id)
 	ret0, _ := ret[0].(*entity.User)

@@ -13,7 +13,7 @@ type Reader interface {
 
 //Writer book writer
 type Writer interface {
-	Create(e *entity.Book) (int, error)
+	Create(e *entity.Book) (int64, error)
 	Update(e *entity.Book) error
 	Delete(id entity.ID) error
 }
@@ -26,10 +26,10 @@ type Repository interface {
 
 //UseCase interface
 type UseCase interface {
-	GetBook(id int) (*entity.Book, error)
+	GetBook(id int64) (*entity.Book, error)
 	SearchBooks(query string) ([]*entity.Book, error)
 	ListBooks() ([]*entity.Book, error)
-	CreateBook(title string, author string, pages int, quantity int) (int, error)
+	CreateBook(title string, author string, pages int, quantity int) (int64, error)
 	UpdateBook(e *entity.Book) error
-	DeleteBook(id int) error
+	DeleteBook(id int64) error
 }

@@ -6,7 +6,7 @@ import (
 
 //Publisher data
 type Publisher struct {
-	ID        int
+	ID        int64
 	Name      string
 	Address   string
 	CreatedAt time.Time

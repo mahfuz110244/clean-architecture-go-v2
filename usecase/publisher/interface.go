@@ -6,16 +6,16 @@ import (
 
 //Reader interface
 type Reader interface {
-	Get(id int) (*entity.Publisher, error)
+	Get(id int64) (*entity.Publisher, error)
 	Search(query string) ([]*entity.Publisher, error)
 	List() ([]*entity.Publisher, error)
 }
 
 //Writer Publisher writer
 type Writer interface {
-	Create(e *entity.Publisher) (int, error)
+	Create(e *entity.Publisher) (int64, error)
 	Update(e *entity.Publisher) error
-	Delete(id int) error
+	Delete(id int64) error
 }
 
 //Repository interface
@@ -26,10 +26,10 @@ type Repository interface {
 
 //UseCase interface
 type UseCase interface {
-	GetPublisher(id int) (*entity.Publisher, error)
+	GetPublisher(id int64) (*entity.Publisher, error)
 	SearchPublishers(query string) ([]*entity.Publisher, error)
 	ListPublishers() ([]*entity.Publisher, error)
-	CreatePublisher(name string, address string) (int, error)
+	CreatePublisher(name string, address string) (int64, error)
 	UpdatePublisher(e *entity.Publisher) error
-	DeletePublisher(id int) error
+	DeletePublisher(id int64) error
 }

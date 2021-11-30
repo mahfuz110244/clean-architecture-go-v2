@@ -1,6 +1,7 @@
 package publisher
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
@@ -20,7 +21,7 @@ func NewService(r Repository) *Service {
 }
 
 //CreatePublisher create a Publisher
-func (s *Service) CreatePublisher(name, address string) (int, error) {
+func (s *Service) CreatePublisher(name, address string) (int64, error) {
 	b, err := entity.NewPublisher(name, address)
 	if err != nil {
 		return b.ID, err
@@ -31,7 +32,8 @@ func (s *Service) CreatePublisher(name, address string) (int, error) {
 //GetPublisher get a Publisher
 func (s *Service) GetPublisher(id entity.ID) (*entity.Publisher, error) {
 	b, err := s.repo.Get(id)
-	if b == nil {
+	fmt.Println(b)
+	if b == nil || b.ID == 0 {
 		return nil, entity.ErrNotFound
 	}
 	if err != nil {

@@ -7,7 +7,7 @@ import (
 // import "github.com/google/uuid"
 
 //ID entity ID
-type ID = int
+type ID = int64
 
 //NewID create a new entity ID
 func NewID() ID {

@@ -8,7 +8,7 @@ import (
 
 //User data
 type User struct {
-	ID        int
+	ID        int64
 	Email     string
 	Password  string
 	FirstName string

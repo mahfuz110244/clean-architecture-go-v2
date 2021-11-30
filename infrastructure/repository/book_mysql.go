@@ -20,7 +20,7 @@ func NewBookMySQL(db *sql.DB) *BookMySQL {
 }
 
 //Create a book
-func (r *BookMySQL) Create(e *entity.Book) (int, error) {
+func (r *BookMySQL) Create(e *entity.Book) (int64, error) {
 	stmt, err := r.db.Prepare(`
 		insert into book (title, author, pages, quantity, created_at) 
 		values(?,?,?,?,?)`)
