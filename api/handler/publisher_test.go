@@ -118,7 +118,7 @@ func Test_getPublisher(t *testing.T) {
 	r.Handle("/v1/publisher/{id}", handler)
 	ts := httptest.NewServer(r)
 	defer ts.Close()
-	res, err := http.Get(ts.URL + "/v1/publisher/" + strconv.Itoa(b.ID))
+	res, err := http.Get(ts.URL + "/v1/publisher/" + strconv.FormatInt(b.ID, 10))
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode)
 	var d *entity.Publisher
@@ -142,7 +142,7 @@ func Test_deletePublisher(t *testing.T) {
 	}
 	service.EXPECT().DeletePublisher(b.ID).Return(nil)
 	handler := deletePublisher(service)
-	req, _ := http.NewRequest("DELETE", "/v1/publisher/"+strconv.Itoa(b.ID), nil)
+	req, _ := http.NewRequest("DELETE", "/v1/publisher/"+strconv.FormatInt(b.ID, 10), nil)
 	r.Handle("/v1/publishermark/{id}", handler).Methods("DELETE", "OPTIONS")
 	rr := httptest.NewRecorder()
 	r.ServeHTTP(rr, req)

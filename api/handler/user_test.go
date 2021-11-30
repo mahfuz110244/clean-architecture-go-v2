@@ -125,7 +125,7 @@ func Test_getUser(t *testing.T) {
 	r.Handle("/v1/user/{id}", handler)
 	ts := httptest.NewServer(r)
 	defer ts.Close()
-	res, err := http.Get(ts.URL + "/v1/user/" + strconv.Itoa(u.ID))
+	res, err := http.Get(ts.URL + "/v1/user/" + strconv.FormatInt(u.ID, 10))
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode)
 	var d *presenter.User
@@ -149,7 +149,7 @@ func Test_deleteUser(t *testing.T) {
 	}
 	m.EXPECT().DeleteUser(u.ID).Return(nil)
 	handler := deleteUser(m)
-	req, _ := http.NewRequest("DELETE", "/v1/user/"+strconv.Itoa(u.ID), nil)
+	req, _ := http.NewRequest("DELETE", "/v1/user/"+strconv.FormatInt(u.ID, 10), nil)
 	r.Handle("/v1/user/{id}", handler).Methods("DELETE", "OPTIONS")
 	rr := httptest.NewRecorder()
 	r.ServeHTTP(rr, req)
